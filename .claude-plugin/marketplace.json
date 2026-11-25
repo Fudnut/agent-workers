@@ -1,6 +1,6 @@
 {
   "name": "agent-workers",
-  "description": "Private marketplace for the workers plugin.",
+  "description": "Marketplace for the workers plugin.",
   "owner": { "name": "agent-workers" },
   "plugins": [
     {

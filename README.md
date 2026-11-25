@@ -16,7 +16,6 @@ A Claude Code plugin to choose which sub-agent does a task: DeepSeek, Antigravit
 ## Requirements
 
 - Windows with Windows PowerShell 5.1 (for `setup.ps1`), Git and Claude Code.
-- Git access to this private repository, for example with the GitHub CLI (`gh`).
 - For the Gemini workers: the Antigravity CLI (`agy`), installed and signed in. The Orchestrator models need a paid plan or an eligible trial.
 - For `deepseek`: Cheap Agent (`cheapag`), installed separately on each computer. Run `/cheapag:allow` once for each repository.
 
@@ -26,27 +25,20 @@ You need only the parts for the workers that you use. Sonnet and Haiku need noth
 
 Do this on each computer.
 
-1. Set up Git access (skip `gh auth login` if you are signed in):
-
-   ```powershell
-   gh auth login
-   gh auth setup-git
-   ```
-
-2. Install the plugin:
+1. Install the plugin:
 
    ```powershell
    claude plugin marketplace add https://github.com/Fudnut/agent-workers.git
    claude plugin install workers@agent-workers
    ```
 
-3. Add the settings that a plugin cannot carry (Gemini workers only). Set `-ProjectRoot` to the folder that holds your projects:
+2. Add the settings that a plugin cannot carry (Gemini workers only). Set `-ProjectRoot` to the folder that holds your projects:
 
    ```powershell
    powershell -NoProfile -ExecutionPolicy Bypass -File "$HOME\.claude\plugins\marketplaces\agent-workers\setup.ps1" -ProjectRoot C:\Projects
    ```
 
-4. Start a new Claude Code session.
+3. Start a new Claude Code session.
 
 ### What `setup.ps1` changes
 
@@ -145,3 +137,7 @@ Uninstall does not remove the entries that `setup.ps1` added. Remove them from t
 ## Status
 
 `hydrogen` read-only runs passed on two computers (2026-11-25). Not tested yet through the plugin: the other workers (Orchestrators included), code changes, runs near the 60-minute limit, and the rollover to Sonnet.
+
+## License
+
+MIT. See [LICENSE](LICENSE).
