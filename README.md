@@ -79,7 +79,36 @@ Good to know:
 - **Refusals:** a consent or permission refusal is not a failure. Claude stops and asks.
 - **Antigravity edits the working tree directly.** Review `git diff` and untracked files before you commit.
 - **Say the scope exactly:** for example, "top level only" or "include subfolders". Workers can read the same words differently. Check the output: a worker can read only part of a long file.
-- **Large tasks:** each Antigravity run has a 9-minute limit and a fixed overhead. Use it for large tasks, and split those that take too long.
+- **Large tasks:** each Antigravity run has a fixed overhead, so use it for large tasks.
+- **9-minute limit:** Claude's Bash tool stops a foreground command after 10 minutes, so the wrapper tells `agy` to stop at 9. Split longer tasks. A timeout can leave partial edits.
+- **`SUCCESS` is not proof:** `agy` can report it although a command inside the run failed. Check the result.
+- **Commands:** do not treat the `agy` allow list as a barrier. An Orchestrator test run reported running a command that is not on it.
+- **Permission rule:** do not add `Bash(agy *)` to Claude's `permissions.allow`. It skips the auto mode check.
+
+### Orchestrators
+
+`orch-neon` and `orch-carbon` send the brief to an Antigravity orchestrator, which plans and does the steps itself in one run. Your Claude session stays in charge: it talks to you, reviews, commits and merges.
+
+- Use `neon` or `carbon` for one clear coding task. Use an Orchestrator for several dependent steps.
+- The whole job must fit in the 9-minute limit, planning included.
+- You see the result, not each step, and Claude cannot correct it part-way. Start from a clean working tree.
+- Prefer a single task to a whole session.
+
+## Troubleshooting
+
+Run `agy` directly to see if the problem is in `agy` or in the plugin. A sign-in or trust question means that first-run setup is not done: run `agy` alone and answer it.
+
+```powershell
+agy -p "say OK" --model gemini-4-hydrogen-medium --output-format json --print-timeout 2m
+```
+
+To check that the auto mode rule loaded:
+
+```powershell
+claude auto-mode config
+```
+
+A slow run is not always stuck: a 756-file summary took more than 10 minutes.
 
 ## Update
 
@@ -101,4 +130,4 @@ Uninstall does not remove the entries that `setup.ps1` added. Remove them from t
 
 ## Status
 
-`hydrogen` read-only runs passed on two computers (2026-11-25). Not tested yet through the plugin: the other workers, code changes, and the rollover to Sonnet.
+`hydrogen` read-only runs passed on two computers (2026-11-25). Not tested yet through the plugin: the other workers (Orchestrators included), code changes, and the rollover to Sonnet.
