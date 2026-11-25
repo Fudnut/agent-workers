@@ -94,7 +94,7 @@ Good to know:
 - **Antigravity edits the working tree directly.** Review `git diff` and untracked files before you commit.
 - **Say the scope exactly:** for example, "top level only" or "include subfolders". Workers can read the same words differently. Check the output: a worker can read only part of a long file.
 - **Large tasks:** each Antigravity run has a fixed overhead, so use it for large tasks.
-- **9-minute limit:** Claude's Bash tool stops a foreground command after 10 minutes, so the wrapper tells `agy` to stop at 9. Split longer tasks. A timeout can leave partial edits.
+- **60-minute limit (Antigravity only):** the wrapper runs `agy` in the background, because Claude's Bash tool stops a foreground command after 10 minutes. `agy` stops at 60 minutes. A timeout can leave partial edits. DeepSeek jobs do not use this limit.
 - **`SUCCESS` is not proof:** `agy` can report it although a command inside the run failed. Check the result.
 - **Commands:** do not treat the `agy` allow list as a barrier. An Orchestrator test run reported running a command that is not on it.
 - **Permission rule:** do not add `Bash(agy *)` to Claude's `permissions.allow`. It skips the auto mode check.
@@ -104,7 +104,7 @@ Good to know:
 `orch-neon` and `orch-carbon` send the brief to an Antigravity orchestrator, which plans and does the steps itself in one run. Your Claude session stays in charge: it talks to you, reviews, commits and merges.
 
 - Use `neon` or `carbon` for one clear coding task. Use an Orchestrator for several dependent steps.
-- The whole job must fit in the 9-minute limit, planning included.
+- The whole job must fit in the 60-minute limit, planning included.
 - You see the result, not each step, and Claude cannot correct it part-way. Start from a clean working tree.
 - Prefer a single task to a whole session, although the session command works for Orchestrators too.
 
@@ -144,4 +144,4 @@ Uninstall does not remove the entries that `setup.ps1` added. Remove them from t
 
 ## Status
 
-`hydrogen` read-only runs passed on two computers (2026-11-25). Not tested yet through the plugin: the other workers (Orchestrators included), code changes, and the rollover to Sonnet.
+`hydrogen` read-only runs passed on two computers (2026-11-25). Not tested yet through the plugin: the other workers (Orchestrators included), code changes, runs near the 60-minute limit, and the rollover to Sonnet.
