@@ -1,0 +1,4 @@
+{
+  "name": "workers",
+  "description": "Choose a sub-agent worker: DeepSeek, Antigravity (Gemini), Sonnet or Haiku."
+}

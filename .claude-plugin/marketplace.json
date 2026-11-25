@@ -1,0 +1,12 @@
+{
+  "name": "agent-workers",
+  "description": "Private marketplace for the workers plugin.",
+  "owner": { "name": "agent-workers" },
+  "plugins": [
+    {
+      "name": "workers",
+      "source": "./",
+      "description": "Choose a sub-agent worker: DeepSeek, Antigravity (Gemini), Sonnet or Haiku."
+    }
+  ]
+}
