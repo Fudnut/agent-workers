@@ -60,7 +60,7 @@ It adds only missing entries, makes a backup of an existing file before it chang
 Send one task to a worker:
 
 ```text
-/workers:use hydrogen Summarize each Markdown file in docs in one line. Change nothing.
+/workers:use hydrogen Summarize each Markdown file in docs (top level only) in one line. Change nothing.
 /workers:use neon Add input validation to src/parse.py and run its tests.
 /workers:use deepseek Rename the --out option to --output in the CLI and its tests.
 ```
@@ -78,6 +78,7 @@ Good to know:
 - **Failure:** if any worker except Sonnet fails (error, FAIL, PARTIAL, TIMEOUT, quota or provider error), the step goes to a Sonnet sub-agent without a question, and Claude reports the switch. This uses Claude allowance. If Sonnet fails, Claude asks.
 - **Refusals:** a consent or permission refusal is not a failure. Claude stops and asks.
 - **Antigravity edits the working tree directly.** Review `git diff` and untracked files before you commit.
+- **Say the scope exactly:** for example, "top level only" or "include subfolders". Workers can read the same words differently. Check the output: a worker can read only part of a long file.
 - **Large tasks:** each Antigravity run has a 9-minute limit and a fixed overhead. Use it for large tasks, and split those that take too long.
 
 ## Update
@@ -100,4 +101,4 @@ Uninstall does not remove the entries that `setup.ps1` added. Remove them from t
 
 ## Status
 
-Not tested yet: live worker runs through the plugin, and the rollover to Sonnet.
+`hydrogen` read-only runs passed on two computers (2026-11-25). Not tested yet through the plugin: the other workers, code changes, and the rollover to Sonnet.
