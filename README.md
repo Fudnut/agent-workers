@@ -65,11 +65,25 @@ Send one task to a worker:
 /workers:use deepseek Rename the --out option to --output in the CLI and its tests.
 ```
 
-Set the worker for the session:
+All commands:
 
-```text
-/workers:use deepseek for the rest of the session
-```
+| One task | Rest of the session |
+|---|---|
+| `/workers:use deepseek <task>` | `/workers:use deepseek for the rest of the session` |
+| `/workers:use hydrogen <task>` | `/workers:use hydrogen for the rest of the session` |
+| `/workers:use neon <task>` | `/workers:use neon for the rest of the session` |
+| `/workers:use carbon <task>` | `/workers:use carbon for the rest of the session` |
+| `/workers:use orch-neon <task>` | `/workers:use orch-neon for the rest of the session` |
+| `/workers:use orch-carbon <task>` | `/workers:use orch-carbon for the rest of the session` |
+| `/workers:use sonnet <task>` | `/workers:use sonnet for the rest of the session` |
+| `/workers:use haiku <task>` | `/workers:use haiku for the rest of the session` |
+
+- **Task and session together:** `/workers:use neon for the rest of the session. First task: <task>`
+- **Change the session worker:** run the session command again with another worker.
+- **Stop using it:** tell Claude to stop using the session worker, or start a new session. The choice does not carry over to a new session.
+- **Use the session worker:** ask for a task to be delegated, or run `/workers:use <task>` without a worker name.
+- **One-time exception:** a worker named for one task does not change the session worker.
+- **DeepSeek model:** name one in the task to use a different Cheap Agent model.
 
 Good to know:
 
@@ -92,7 +106,7 @@ Good to know:
 - Use `neon` or `carbon` for one clear coding task. Use an Orchestrator for several dependent steps.
 - The whole job must fit in the 9-minute limit, planning included.
 - You see the result, not each step, and Claude cannot correct it part-way. Start from a clean working tree.
-- Prefer a single task to a whole session.
+- Prefer a single task to a whole session, although the session command works for Orchestrators too.
 
 ## Troubleshooting
 
